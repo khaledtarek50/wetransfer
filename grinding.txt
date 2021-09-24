@@ -1,0 +1,11 @@
+things_to_learn :
+
+map
+lambda
+generators
+
+
+advanced:
+decorators
+OOP
+
