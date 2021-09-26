@@ -240,16 +240,23 @@
 #         if age >= 55 and handicap > 7:
 #             return 'Senior'
 #         return 'Open'
-def open_or_senior(data):
-    for inner_list in data:
-        print(inner_list)
-        for info in inner_list:
-            age, handicap = info
-            #         print(data)
-            if age >= 55 and handicap > 7:
-                return 'Senior'
-            return 'Open'
+# def open_or_senior(data):
+#     new_list = []
+#     for info in data:
+#         age, handicap = info
+#         if age >= 55 and handicap > 7:
+#             new_list.append('Senior')
+#         else:
+#             new_list.append('Open')
+#     return new_list
 
 
-print(open_or_senior([(45, 12), (55, 21), (19, -2), (104, 20)]))
-print(open_or_senior([(16, 23), (73, 1), (56, 20), (1, -1)]))
+# def openOrSenior(data):
+#     return ["Senior" if age >= 55 and handicap >= 8 else "Open" for (age, handicap) in data]
+
+# def open_or_senior(data):
+#     return list(map(lambda d: 'Senior' if d[0] >= 55 and d[1] > 7 else 'Open', data))
+
+#
+# print(open_or_senior([(45, 12), (55, 21), (19, -2), (104, 20)]))
+# print(open_or_senior([(16, 23), (73, 1), (56, 20), (1, -1)]))
