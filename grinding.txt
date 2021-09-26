@@ -1,6 +1,6 @@
 things_to_learn :
 
-map
+map map(function,iterable)
 lambda multiple argument : one expression 
 generators
 
