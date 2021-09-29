@@ -100,11 +100,66 @@
 #         pal_gen.throw(ValueError("We don't like large palindromes"))
 #     pal_gen.send(10 ** (digits))
 
-file_name = "file.csv"
-lines = (line for line in open(file_name))
-list_line = (s.rstrip().split(",") for s in lines)
-cols = next(list_line)
-company_dicts = (dict(zip(cols, data)) for data in list_line)
-funding = (int(company_dict["raisedAmt"]) for company_dict in company_dicts if company_dict["round"] == "a")
-total_series_a = sum(funding)
-print(f"Total series A fundraising: ${total_series_a}")
+# file_name = "file.csv"
+# lines = (line for line in open(file_name))
+# list_line = (s.rstrip().split(",") for s in lines)
+# cols = next(list_line)
+# company_dicts = (dict(zip(cols, data)) for data in list_line)
+# funding = (int(company_dict["raisedAmt"]) for company_dict in company_dicts if company_dict["round"] == "a")
+# total_series_a = sum(funding)
+# print(f"Total series A fundraising: ${total_series_a}")
+
+
+# def solution(number):
+#     result = []
+#     if number <= 0:
+#         return 0
+#     for i in range(number):
+#         if i % 3 == 0 and i % 5 == 0:
+#             result.append(i)
+#         elif i % 3 == 0:
+#             result.append(i)
+#         elif i % 5 == 0:
+#             result.append(i)
+#     return sum(result)
+
+# def solution(number):
+#     return sum(x for x in range(number) if x % 3 == 0 or x % 5 == 0)
+
+# def solution(number):
+#     sum = 0
+#     for i in range(number):
+#         if (i % 3) == 0 or (i % 5) == 0:
+#             sum += i
+#     return sum
+
+# def find_it(seq):
+#     return next((x for x in seq if seq.count(x) % 2 == 1))
+
+
+# def find_it(seq):
+#     for x in seq:
+#         if seq.count(x) % 2 == 1:
+#             return x
+
+#
+# print(find_it([20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5]))
+# print(find_it([1, 1, 2, -2, 5, 2, 4, 4, -1, -2, 5]))
+# print(find_it([1, 1, 2, -2, 5, 2, 4, 4, -1, -2, 5]))
+
+# def digital_root(n):
+#     if n == 0:
+#         return 0
+#     ans = 0
+#     for i in range(0, n):
+#         ans = (ans + n) % 9
+#         if ans == 0:
+#             return 9
+#         else:
+#             return ans % 9
+#
+#
+# print(digital_root(16))
+# print(digital_root(942))
+# print(digital_root(132189))
+# print(digital_root(493193))
