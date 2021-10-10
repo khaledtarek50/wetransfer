@@ -15,11 +15,11 @@
 # To convert integer to binary, start with the integer in question and divide it by 2 keeping notice of the quotient
 # and the remainder
 
-
+#
 # def add_binary(a, b):
 #     return bin(a + b).replace('0b', '')
 #
-#
+
 # def add_binary(a, b):
 #     return "{0:b}".format(int(a + b))
 
@@ -142,7 +142,7 @@
 #         if seq.count(x) % 2 == 1:
 #             return x
 
-#
+
 # print(find_it([20, 1, -1, 2, -2, 3, 3, 5, 5, 1, 2, 4, 20, 4, -1, -2, 5]))
 # print(find_it([1, 1, 2, -2, 5, 2, 4, 4, -1, -2, 5]))
 # print(find_it([1, 1, 2, -2, 5, 2, 4, 4, -1, -2, 5]))
