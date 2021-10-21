@@ -230,10 +230,10 @@
 #         return even_list.pop(0)
 #
 #
-# def find_outlier(int):
-#     odds = [x for x in int if x % 2 != 0]
-#     evens = [x for x in int if x % 2 == 0]
-#     return odds[0] if len(odds) < len(evens) else evens[0]
+def find_outlier(int):
+    odds = [x for x in int if x % 2 != 0]
+    evens = [x for x in int if x % 2 == 0]
+    return odds[0] if len(odds) < len(evens) else evens[0]
 
 
 # x = find_outlier([2, 4, 6, 8, 10, 3])
