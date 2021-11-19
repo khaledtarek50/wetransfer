@@ -4,16 +4,21 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 import locators
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 URL = "https://wetransfer.com/"
 match_remaining_time = re.compile(r"(\d+) (second|seconds|minute|minutes|hours)")
 
 
-def setup_webdriver():
+def setup_webdriver(headless=True):
     options = webdriver.ChromeOptions()
     options.add_argument("--log-level=3")
-    driver = webdriver.Chrome(options=options)
+    options.headless = headless
+    driver = webdriver.Chrome(
+        "D:\\python_grinding\\todos\\wetransfer_bot\\chromedriver", options=options
+    )
     driver.maximize_window()
     return driver
 
@@ -41,8 +46,11 @@ def skip_promotion(driver):  # protected
 
 
 def set_file(driver, file):  # protected
-    file_receiver = find_element(driver, locators.FILE_INPUT)
-    file_receiver.send_keys(file)
+    try:
+        file_receiver = find_element(driver, locators.FILE_INPUT)
+        file_receiver.send_keys(file)
+    except NoSuchElementException:
+        pass
 
 
 def skip_almost_there_ad(driver):
@@ -50,6 +58,11 @@ def skip_almost_there_ad(driver):
         find_element(driver, locators.ALMOST_THERE_AD).click()
     except NoSuchElementException:
         pass
+
+
+def get_file_name(driver):
+    file_name = find_element(driver, locators.FILE_NAME)
+    return file_name.text
 
 
 def clear_input(input):
@@ -114,10 +127,14 @@ def get_progress_bar(driver):
     return find_element(driver, locators.PROGRESS_BAR)
 
 
-def upload(file, driver=None, title=None, message=None):
-    if driver is None:
-        driver = setup_webdriver()
+def get_progress(driver):
+    return int(get_progress_bar(driver).text.replace('%', ''))
 
+
+def upload(file, driver, on_progress_update=None, title=None, message=None):
+    if on_progress_update is not None and not isinstance(on_progress_update, callable):
+        raise ValueError('on_progress_update is not callable')
+    
     navigate_webdriver(driver, URL)
     skip_welcome_message(driver)
     skip_almost_there_ad(driver)
@@ -134,29 +151,48 @@ def upload(file, driver=None, title=None, message=None):
 
     while not is_done(driver):
         time.sleep(0.5)
+        if on_progress_update is not None:
+            progress = get_progress(driver)
+            on_progress_update(progress)
 
     return get_link(driver)
 
 
-def download(url, driver=None):
-    if driver is None:
-        driver = setup_webdriver()
-
+def download(url, driver):
     navigate_webdriver(driver, url)
-    try:
-        skip_welcome_message(driver)
-        skip_almost_there_ad(driver)
-        skip_promotion(driver)
+    skip_welcome_message(driver)
+    skip_almost_there_ad(driver)
+    skip_promotion(driver)
+    download_button = find_element(driver, locators.DOWNLOAD_BUTTON)
+    # file_name = get_file_name(driver)
+    # time.sleep(3)
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable(download_button)).click()
+    # return file_name
 
-    except NoSuchElementException:
-        pass
-    print('before')
-    find_element(driver, locators.DOWNLOAD_BUTTON).click()
-    print('after')
+
+class WeTransferBot:
+    def __init__(self, driver) -> None:
+        self.driver = driver
+
+    def on_progress(self, progress):
+        print(progress)
+
+    def upload(self, file):
+        return upload(file, driver=self.driver, on_progress_update=self.on_progress)
+
+    def download(self, url):
+        return download(url, driver=self.driver)
+
 
 if __name__ == "__main__":
-    FILE = "D:\\python_grinding\\todos\\database.json"
-    driver = setup_webdriver()
-    url = upload(FILE, driver=driver)
-    download(url, driver=driver)
+    # FILE = "D:\\python_grinding\\todos\wetransfer_bot\\database.json"
+    FILE = "D:\\movies\\[EgyBest].Arcane.S01E01.WEB-DL.720p.x264.mp4"
+    driver = setup_webdriver(headless=False)
 
+    # def update_progress(progress):
+    #     print(progress)
+
+    
+    # url = upload(FILE, on_progress_update=update_progress ,driver=driver)
+    # z = download(url, driver=driver)
+    # print(z)

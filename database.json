@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "todos": [
+        {
+          "id": "1260682f-33b3-4a76-9148-b27b88921d3b",
+          "owner_id": 1,
+          "text": "i wanna be amazing",
+          "when": "2021-11-16 17:36:10.363880",
+          "finished": false
+        }
+      ],
+      "id": 1,
+      "first_name": "yosef",
+      "last_name": "mohamed"
+    },
+    {
+      "todos": [  
+        {
+          "id": "de31092f-23a6-4dd4-848a-e7813bb710be",
+          "owner_id": 2,
+          "text": null,
+          "when": "2021-11-09 14:54:55.647744",
+          "finished": true
+        }
+      ],
+      "id": 2,
+      "first_name": "fady",
+      "last_name": "zakaria"
+    }
+  ]
+}
